@@ -40,4 +40,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/cart/checkout', 'CartController@cartCheckout');
 });
 
+// Admin Route
+Route::get('/admin', 'PagesController@adminPage');
+// View Parameter should be number only
+Route::get('/admin/month/{year}', 'PagesController@dashboard')->where('year', '[0-9]+');;
+
+
+
 
