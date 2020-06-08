@@ -43,7 +43,9 @@ Route::group(['middleware' => ['auth']], function () {
 // Admin Route
 Route::get('/admin', 'PagesController@adminPage');
 // View Parameter should be number only
-Route::get('/admin/month/{year}', 'PagesController@dashboard')->where('year', '[0-9]+');;
+Route::get('/admin/month/{year}', 'PagesController@dashboard')->where('year', '[0-9]+');
+Route::get('/admin/sales', 'PagesController@salesPage');
+Route::post('/admin/transaction/detail', 'PagesController@salesDetail');
 
 
 

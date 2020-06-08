@@ -155,4 +155,8 @@ class PlantShopController extends Controller
 
     }
 
+    function salesDetail(Request $request) {
+        
+    }
+
 }

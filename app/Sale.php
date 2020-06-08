@@ -18,4 +18,8 @@ class Sale extends Model
         return $this->hasMany('App\Detail', 'sales_id');
     }
 
+    function getSaleDate() {
+        return date('M d, Y', strtotime($this->sales_date));
+    }
+
 }
