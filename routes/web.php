@@ -45,7 +45,14 @@ Route::get('/admin', 'PagesController@adminPage');
 // View Parameter should be number only
 Route::get('/admin/month/{year}', 'PagesController@dashboard')->where('year', '[0-9]+');
 Route::get('/admin/sales', 'PagesController@salesPage');
-Route::post('/admin/transaction/detail', 'PagesController@salesDetail');
+Route::post('/admin/transaction/detail', 'AdminController@salesDetail');
+Route::get('/admin/users', 'PagesController@usersPage');
+Route::post('/admin/users/add', 'AdminController@userAdd');
+Route::post('/admin/users/edit', 'AdminController@userEdit');
+Route::post('/admin/users/avatar', 'AdminController@userUpdateAvatar');
+Route::post('/admin/users/delete', 'AdminController@userDelete');
+Route::post('/admin/users/detail', 'AdminController@userDetail');
+Route::get('/admin/users/{id}/cart', 'AdminController@userCart');
 
 
 

@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'type'
+        'type'
     ];
 
     function carts() {
@@ -69,6 +69,18 @@ class User extends Authenticatable
 
         return Cart::where('user_id', '=', $this->id)->count();
 
+    }
+
+    function getUserCreatedDate() {
+        return date('M d, Y', strtotime($this->created_at));
+
+    }
+
+    function isAdmin(){
+        if ($this->type == 1) {
+            return true;
+        }
+        return false;
     }
 
 }

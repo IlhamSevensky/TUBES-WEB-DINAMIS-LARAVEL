@@ -204,37 +204,8 @@ class PagesController extends Controller
          return view('admin.sales')->with('transaction_data', $transaction_data);
      }
 
-     function salesDetail(Request $request) {
-        
-        $response = array( 'transaction' => '',
-                        'date' => '',
-                        'list' => '',
-                        'total' => '');
-
-        $sale = Sale::where('id', '=', $request->id)->first();
-        
-        $details = $sale->details->all();
-
-        $total = 0;
-        foreach ($details as $detail) {
-            $subtotal = $detail->product->price * $detail->quantity;
-            $total += $subtotal;
-
-            $response['transaction'] = $sale->pay_id;
-            $response['date'] = $sale->sales_date;
-            $response['list'] .= "  <tr class='prepend_items'>
-                                        <td>" . $detail->product->name . "</td>
-                                        <td>Rp. " . $detail->product->number_format_price() . "</td>
-                                        <td>" . $detail->quantity . "</td>
-                                        <td>Rp. ".number_format($subtotal)."</td>
-                                    </tr>
-            ";
-
-        }
-
-        $response['total'] = '<b>Rp. '.number_format($total).'<b>';
-
-        return response()->json($response);
-
+    function usersPage(){
+        $users = User::all();
+        return view('admin.users')->with('users', $users);
     }
 }

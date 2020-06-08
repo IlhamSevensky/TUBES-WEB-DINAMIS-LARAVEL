@@ -66,7 +66,7 @@ class PlantShopController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|email|unique:users',
-            'photo' => 'image',
+            'photo' => 'mimes:jpeg,jpg,png',
             'curr_password' => 'required'
         ];
 
@@ -153,10 +153,6 @@ class PlantShopController extends Controller
 
         return response()->json($response);
 
-    }
-
-    function salesDetail(Request $request) {
-        
     }
 
 }
