@@ -241,4 +241,10 @@ class PagesController extends Controller
                                     ->with('list_product', $list_product)
                                     ->with('list_category', $list_category);
     }
+
+    function categoryPage() {
+        $list_category = Category::all();
+
+        return view('admin.category')->with('list_category', $list_category);
+    }
 }

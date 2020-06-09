@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use App\Sale;
 use App\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -218,7 +219,7 @@ class AdminController extends Controller
 
     }
 
-    function categoryFetch() {
+    function productCategoryFetch() {
         $list_category = Category::all();
 
         $response = array();
@@ -290,7 +291,10 @@ class AdminController extends Controller
         $slug = Str::of($request->name)->slug('-');
 
         while (Product::where('slug', '=', $slug)->exists()) {
-            $slug = Str::of($request->name + ' ' + Str::lower(Str::random(6)))->slug('-');
+            $random = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            $add_slug = substr(str_shuffle($random), 0, 6);
+
+            $slug = Str::of($request->name . ' ' . Str::lower($add_slug))->slug('-');
         }
 
         Product::create([
@@ -319,6 +323,93 @@ class AdminController extends Controller
         Product::where('id','=', $request->id)->delete();
 
         return redirect()->back()->with('success', 'Product deleted successfuly');
+    }
+
+    function categoryFetch(Request $request) {
+
+        $category = Category::where('id', '=', $request->id)->first();
+
+        return response()->json($category);
+
+    }
+
+    function categoryEdit(Request $request) {
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        if (!Category::where('id','=', $request->id)->exists()) {
+            return redirect()->back();
+        }
+
+        if (Category::where('name', '=', $request->name)->exists()) {
+            return redirect()->back()->with('error', 'Category already exists');
+        }
+
+        $slug = Str::of($request->name)->slug('-');
+
+        while (Category::where('cat_slug', '=', $slug)->exists()) {
+            $random = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            $add_slug = substr(str_shuffle($random), 0, 6);
+
+            $slug = Str::of($request->name . ' ' . Str::lower($add_slug))->slug('-');
+        }
+
+        Category::where('id', '=', $request->id)->update([
+            'name' => $request->name,
+            'cat_slug' => $slug
+        ]);   
+        
+        return redirect()->back()->with('success', 'Update category successfully');
+    }
+
+    function categoryAdd(Request $request) {
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        if (Category::where('name', '=', $request->name)->exists()) {
+            return redirect()->back()->with('error', 'Category already exists');
+        }
+
+        $slug = Str::of($request->name)->slug('-');
+
+        while (Category::where('cat_slug', '=', $slug)->exists()) {
+            $random = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            $add_slug = substr(str_shuffle($random), 0, 6);
+
+            $slug = Str::of($request->name . ' ' . Str::lower($add_slug))->slug('-');
+        }
+
+        Category::create([
+            'name' => $request->name,
+            'cat_slug' => $slug
+        ]);
+
+        return redirect()->back()->with('success', 'Category created successfully');
+    }
+
+    function categoryDelete(Request $request) {
+
+        if (!Category::where('id','=', $request->id)->exists()) {
+            return redirect()->back();
+        }
+        $message = 'Product deleted successfuly';
+
+        try {
+            Category::where('id','=', $request->id)->delete();
+            return redirect()->back()->with('success', $message);
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) {
+                $message = 'Cannot delete because there are still products in this category';
+            }
+            
+        }
+
+        return redirect()->back()->with('error', $message);
+        
     }
 
 }
