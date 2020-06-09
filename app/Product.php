@@ -30,12 +30,22 @@ class Product extends Model
             return asset('assets/images/products/default/noimage.jpg');
         }
 
-        return asset('assets/images/products/' . $this->photo);
+        return asset('assets/images/' . $this->photo);
 
     }
 
     function number_format_price() {
         return number_format($this->price);
+    }
+
+    function counter_now() {
+        $date_now = date('Y-m-d');
+
+        if ($this->date_view != $date_now) {
+            return 0;
+        }
+
+        return $this->counter;
     }
 
 }

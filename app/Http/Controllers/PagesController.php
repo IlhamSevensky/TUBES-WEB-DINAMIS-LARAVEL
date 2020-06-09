@@ -167,8 +167,9 @@ class PagesController extends Controller
 
             $monthly_total_sales[] = $total_per_month;
         }        
-
-         return view('admin.home')->with('year', $year)
+        
+        // Year must be send to all view
+        return view('admin.home')->with('year', $year)
                                 ->with('total_sales', $total_sales)
                                 ->with('number_of_product', $number_of_product)
                                 ->with('number_of_user', $number_of_user)
@@ -207,5 +208,37 @@ class PagesController extends Controller
     function usersPage(){
         $users = User::all();
         return view('admin.users')->with('users', $users);
+    }
+
+    function productPage() {
+        return redirect('/admin/products/all');
+    }
+
+    function product($category_slug) {
+        
+        // Default category
+        $cat_slug = 'all';
+        // Default list product
+        $list_product = array();
+        
+        // Check category option
+        if (Category::where('cat_slug', '=', $category_slug)->exists()) {
+            $category = Category::where('cat_slug', '=', $category_slug)->first();
+            $cat_slug = $category_slug;
+
+            // Check product by category
+            if (Product::where('category_id', '=', $category->id)->exists()) {
+            $list_product = Product::where('category_id', '=', $category->id)->orderBy('id', 'desc')->get();
+            }
+        } else {
+            $list_product = Product::orderBy('id', 'desc')->get();
+        }
+
+        // List Category
+        $list_category = Category::all();
+
+        return view('admin.products')->with('cat_slug', $cat_slug)
+                                    ->with('list_product', $list_product)
+                                    ->with('list_category', $list_category);
     }
 }

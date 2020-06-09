@@ -14,7 +14,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">REPORTS</li>
-            <li><a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <li><a href="/admin/month/{{$year ?? 0}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li><a href="/admin/sales"><i class="fa fa-money"></i> <span>Sales</span></a></li>
             <li class="header">MANAGE</li>
             <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Users</span></a></li>
@@ -27,7 +27,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/admin/products"><i class="fa fa-circle-o"></i> Product List</a></li>
+                    <li><a href="/admin/products/all"><i class="fa fa-circle-o"></i> Product List</a></li>
                     <li><a href="/admin/category"><i class="fa fa-circle-o"></i> Category</a></li>
                 </ul>
             </li>

@@ -16,7 +16,7 @@ class CreateCategory extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100);
-            $table->string('cat_slug', 150)->unique();
+            $table->string('cat_slug')->unique();
         });
     }
 

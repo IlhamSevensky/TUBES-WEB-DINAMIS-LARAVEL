@@ -53,6 +53,13 @@ Route::post('/admin/users/avatar', 'AdminController@userUpdateAvatar');
 Route::post('/admin/users/delete', 'AdminController@userDelete');
 Route::post('/admin/users/detail', 'AdminController@userDetail');
 Route::get('/admin/users/{id}/cart', 'AdminController@userCart');
+Route::get('/admin/products', 'PagesController@productPage');
+Route::get('/admin/products/{category_slug}', 'PagesController@product');
+Route::post('/admin/products/detail', 'AdminController@productDetail');
+Route::post('/admin/products/category/fetch', 'AdminController@categoryFetch');
+Route::post('/admin/products/add', 'AdminController@productAdd');
+Route::post('/admin/products/edit', 'AdminController@productEdit');
+Route::post('/admin/products/delete', 'AdminController@productDelete');
 
 
 
