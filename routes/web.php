@@ -66,6 +66,16 @@ Route::post('/admin/category/edit', 'AdminController@categoryEdit');
 Route::post('/admin/category/add', 'AdminController@categoryAdd');
 Route::post('/admin/category/delete', 'AdminController@categoryDelete');
 
+Route::post('/admin/users/cart/detail', 'AdminController@userCartDetail');
+Route::post('/admin/users/cart/edit', 'AdminController@userCartEdit');
+Route::post('/admin/users/cart/product', 'AdminController@userCartFetchProduct');
+Route::post('/admin/users/cart/add', 'AdminController@userCartAdd');
+Route::post('/admin/users/cart/delete', 'AdminController@userCartDelete');
+
+Route::post('/admin/products/edit/photo', 'AdminController@productEditPhoto');
+
+// product update image
+
 
 
 

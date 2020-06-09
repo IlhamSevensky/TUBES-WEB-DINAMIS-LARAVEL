@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Category;
 use App\Product;
 use App\Sale;
@@ -140,10 +141,13 @@ class AdminController extends Controller
         }
 
         $user = User::where('id','=', $request->id)->first();
+
         if ($user->photo) {
             Storage::delete($user->photo);
         }
-
+        
+        // Delete cart also
+        // Cart::where('user_id', '=', $request->id)->delete();
         User::where('id','=', $request->id)->delete();
 
         return redirect()->back()->with('success', 'User deleted successfuly');
@@ -157,9 +161,9 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
-        $user = User::where('id', '=', $request->id)->first();
-
         if ($request->photo) {
+
+            $user = User::where('id', '=', $request->id)->first();
             
             if ($user->photo) {
                 Storage::delete($user->photo);
@@ -169,9 +173,11 @@ class AdminController extends Controller
 
             User::where('id', '=', $request->id)->update(['photo' => $photo]);
 
+            return redirect()->back()->with('success', 'Profile photo updated successfully');
+
         }
 
-        return redirect()->back()->with('success', 'Profile photo updated successfully');
+        return redirect()->back();
 
     }
 
@@ -235,7 +241,7 @@ class AdminController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0|not_in:0',
             'description' => 'required'
         ]);
 
@@ -277,7 +283,7 @@ class AdminController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0|not_in:0',
             'category' => 'required',
             'description' => 'required',
             'photo' => 'mimes:jpeg,jpg,png'
@@ -409,6 +415,109 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('error', $message);
+        
+    }
+
+    function userCartDetail(Request $request) {
+
+        $cart = Cart::where('id', '=', $request->id)->first();
+
+        $response = [
+            'cart_id' => $cart->id,
+            'user_id' => $cart->user->id,
+            'product_name' => $cart->product->name,
+            'quantity' => $cart->quantity
+        ];
+
+        return response()->json($response);
+    }
+
+    function userCartEdit(Request $request) {
+
+        $this->validate($request, [ 'quantity' => 'required|numeric|min:0|not_in:0']);
+
+        if (!Cart::where('id', '=', $request->cartid)->exists()) {
+            return redirect()->back();
+        }
+
+        Cart::where('id', '=', $request->cartid)->update([
+            'quantity' => $request->quantity
+        ]);
+        
+        return redirect()->back()->with('success', 'Cart update successfully');
+
+
+    }
+
+    function userCartFetchProduct() {
+
+        $products = Product::all();
+        $response = array();
+
+        foreach ($products as $product) {
+            $response[] .=  "<option value='". $product->id ."' class='append_items'>". $product->name ."</option>";
+        }
+
+        return response()->json($response);
+    
+    }
+
+    function userCartAdd(Request $request) {
+        
+        $this->validate($request, [
+            'product' => 'required',
+            'quantity' => 'required|numeric|min:0|not_in:0'
+        ]);
+
+        if (!User::where('id', '=', $request->id)->exists()) {
+            return redirect()->back();
+        }
+
+        Cart::create([
+            'user_id' => $request->id,
+            'product_id' => $request->product,
+            'quantity' => $request->quantity
+        ]);
+
+        return redirect()->back()->with('success', 'Product added to cart successfully');
+    }
+
+    function userCartDelete(Request $request) {
+
+        if (!Cart::where('id', '=', $request->cartid)->exists()) {
+            return redirect()->back();
+        }
+
+        Cart::where('id', '=', $request->cartid)->delete();
+
+        return redirect()->back()->with('success', 'Product deleted from cart successfully');
+
+    }
+
+    function productEditPhoto(Request $request) {
+
+        $this->validate($request, ['photo' => 'mimes:jpeg,jpg,png']);
+
+        if (!Product::where('id','=', $request->id)->exists()) {
+            return redirect()->back();
+        }
+
+        if ($request->photo) {
+
+            $product = Product::where('id','=', $request->id)->first();
+
+            if ($product->photo) {
+                Storage::delete($product->photo);
+            }
+    
+            $photo = $request->file('photo')->store('products');
+    
+            Product::where('id', '=', $request->id)->update(['photo' => $photo]);
+    
+            return redirect()->back()->with('success', 'Product photo updated successfully');
+        }
+
+        return redirect()->back();
         
     }
 

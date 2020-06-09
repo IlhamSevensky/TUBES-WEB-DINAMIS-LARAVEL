@@ -21,6 +21,24 @@
 
             <!-- Main content -->
             <section class="content">
+                @if(session('success'))
+                <div class='alert alert-success alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h4><i class='icon fa fa-check'></i> Success!</h4>
+                    {{ session('success') }}
+                </div>
+                @endif
+                @if(session('errors') || session('error'))
+                <div class='alert alert-danger alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+                    <h4><i class='icon fa fa-warning'></i> Error!</h4>
+                    {{ session('error') }}
+                    @error('quantity')
+                    {{ $message }}
+                    <br>
+                    @enderror
+                </div>
+                @endif
                 {{-- <?php
                   if(isset($_SESSION['error'])){
                     echo "
@@ -140,7 +158,10 @@
         function getProducts(id) {
             $.ajax({
                 type: 'POST'
-                , url: 'products_all.php'
+                , url: '/admin/users/cart/product'
+                , data: {
+                    "_token": "{{ csrf_token() }}"
+                }
                 , dataType: 'json'
                 , success: function(response) {
                     $('#product').append(response);
@@ -152,15 +173,16 @@
         function getRow(id) {
             $.ajax({
                 type: 'POST'
-                , url: 'cart_row.php'
+                , url: '/admin/users/cart/detail'
                 , data: {
-                    id: id
+                    "_token": "{{ csrf_token() }}"
+                    , id: id
                 }
                 , dataType: 'json'
                 , success: function(response) {
-                    $('.cartid').val(response.cartid);
+                    $('.cartid').val(response.cart_id);
                     $('.userid').val(response.user_id);
-                    $('.productname').html(response.name);
+                    $('.productname').html(response.product_name);
                     $('#edit_quantity').val(response.quantity);
                 }
             });

@@ -84,13 +84,14 @@
                 <h4 class="modal-title"><b><span class="name"></span></b></h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" action="products_photo.php" enctype="multipart/form-data">
+                <form class="form-horizontal" method="POST" action="/admin/products/edit/photo" enctype="multipart/form-data">
+                    @csrf
                     <input type="hidden" class="prodid" name="id">
                     <div class="form-group">
                         <label for="photo" class="col-sm-3 control-label">Photo</label>
 
                         <div class="col-sm-9">
-                            <input type="file" id="photo" name="photo" required>
+                            <input type="file" id="photo" name="photo">
                         </div>
                     </div>
             </div>

@@ -3,34 +3,35 @@
     <div class="modal-dialog">
         <div class="modal-content" style="border-radius: 5px;">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Add New Product</b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Add New Product</b></h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="cart_add.php">
-                <input type="hidden" class="userid" name="id">
-                <div class="form-group">
-                    <label for="product" class="col-sm-3 control-label">Product</label>
+                <form class="form-horizontal" method="POST" action="/admin/users/cart/add">
+                    @csrf
+                    <input type="hidden" class="userid" name="id">
+                    <div class="form-group">
+                        <label for="product" class="col-sm-3 control-label">Product</label>
 
-                    <div class="col-sm-9">
-                      <select class="form-control select2" style="width: 100%;" name="product" id="product" required>
-                        <option value="" selected>- Select -</option>
-                      </select>
+                        <div class="col-sm-9">
+                            <select class="form-control select2" style="width: 100%;" name="product" id="product" required>
+                                <option value="" selected>- Select -</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="quantity" class="col-sm-3 control-label">Quantity</label>
+                    <div class="form-group">
+                        <label for="quantity" class="col-sm-3 control-label">Quantity</label>
 
-                    <div class="col-sm-9">
-                      <input type="number" class="form-control" id="quantity" name="quantity" value="1" required>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="quantity" name="quantity" value="1" required>
+                        </div>
                     </div>
-                </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-info" name="add"><i class="fa fa-save"></i> Save</button>
-              </form>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                <button type="submit" class="btn btn-info" name="add"><i class="fa fa-save"></i> Save</button>
+                </form>
             </div>
         </div>
     </div>
@@ -41,26 +42,27 @@
     <div class="modal-dialog">
         <div class="modal-content" style="border-radius: 5px;">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b><span class="productname"></span></b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b><span class="productname"></span></b></h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="cart_edit.php">
-                <input type="hidden" class="cartid" name="cartid">
-                <input type="hidden" class="userid" name="userid">
-                <div class="form-group">
-                    <label for="edit_quantity" class="col-sm-3 control-label">Quantity</label>
+                <form class="form-horizontal" method="POST" action="/admin/users/cart/edit">
+                    @csrf
+                    <input type="hidden" class="cartid" name="cartid">
+                    <input type="hidden" class="userid" name="userid">
+                    <div class="form-group">
+                        <label for="edit_quantity" class="col-sm-3 control-label">Quantity</label>
 
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="edit_quantity" name="quantity">
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="edit_quantity" name="quantity">
+                        </div>
                     </div>
-                </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-success" name="edit"><i class="fa fa-check-square-o"></i> Update</button>
-              </form>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                <button type="submit" class="btn btn-success" name="edit"><i class="fa fa-check-square-o"></i> Update</button>
+                </form>
             </div>
         </div>
     </div>
@@ -71,23 +73,24 @@
     <div class="modal-dialog">
         <div class="modal-content" style="border-radius: 5px;">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Deleting...</b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Deleting...</b></h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="cart_delete.php">
-                <input type="hidden" class="cartid" name="cartid">
-                <input type="hidden" class="userid" name="userid">
-                <div class="text-center">
-                    <p>DELETE PRODUCT</p>
-                    <h2 class="bold productname"></h2>
-                </div>
+                <form class="form-horizontal" method="POST" action="/admin/users/cart/delete">
+                    @csrf
+                    <input type="hidden" class="cartid" name="cartid">
+                    <input type="hidden" class="userid" name="userid">
+                    <div class="text-center">
+                        <p>DELETE PRODUCT</p>
+                        <h2 class="bold productname"></h2>
+                    </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-danger" name="delete"><i class="fa fa-trash"></i> Delete</button>
-              </form>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                <button type="submit" class="btn btn-danger" name="delete"><i class="fa fa-trash"></i> Delete</button>
+                </form>
             </div>
         </div>
     </div>
