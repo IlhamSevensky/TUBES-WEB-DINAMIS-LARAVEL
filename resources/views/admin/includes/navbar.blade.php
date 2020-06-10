@@ -32,6 +32,7 @@
                             </p>
                         </li>
                         <li class="user-footer">
+                            {{-- Not Needed --}}
                             {{-- <div class="pull-left">
                                 <a href="#profile" data-toggle="modal" class="btn btn-default" id="admin_profile">Update</a>
                             </div> --}}
@@ -45,4 +46,5 @@
         </div>
     </nav>
 </header>
-@include('admin.includes.profile_modal')
+{{-- Not Needed --}}
+{{-- @include('admin.includes.profile_modal') --}}

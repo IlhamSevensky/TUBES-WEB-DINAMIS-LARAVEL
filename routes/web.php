@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
+ * Still error when deleting these section if there is relation
+ * @method Delete Product
+ * @method Delete User
+ */
+
+/**
  * All user except admin only is allowed
  */
 

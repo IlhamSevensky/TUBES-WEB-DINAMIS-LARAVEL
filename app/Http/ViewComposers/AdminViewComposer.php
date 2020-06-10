@@ -11,8 +11,10 @@ class AdminViewComposer
         // Indonesian Time Zone
         $timezone = time() + (60 * 60 * 7);
         $year_now = gmdate('Y', $timezone);
+        $date_now = date('d F Y');
 
-        $view->with('year', $year_now);
+        $view->with('year_now', $year_now)
+            ->with('date_now', $date_now);
 
     }
 }

@@ -180,15 +180,25 @@ class AdminController extends Controller
 
         $user = User::where('id','=', $request->id)->first();
 
-        if ($user->photo) {
-            Storage::delete($user->photo);
-        }
-        
-        // Delete cart also
-        // Cart::where('user_id', '=', $request->id)->delete();
-        User::where('id','=', $request->id)->delete();
+        $message = 'User deleted successfuly';
+        try {
+            $photo = null;
 
-        return redirect()->back()->with('success', 'User deleted successfuly');
+            if ($user->photo) {
+                $photo = $user->photo;
+            }
+            
+            User::where('id','=', $request->id)->delete();
+            Storage::delete($photo);
+
+            return redirect()->back()->with('success', $message);
+        } catch (QueryException $e) {
+            
+            $message = $e->getMessage();
+            
+        }
+
+        return redirect()->back()->with('error', $message);
     }
 
     /**
@@ -416,13 +426,27 @@ class AdminController extends Controller
         }
 
         $product = Product::where('id','=', $request->id)->first();
-        if ($product->photo) {
-            Storage::delete($product->photo);
+        $message = 'Product deleted successfuly';
+
+        try {
+            $photo = null;
+            
+            if ($product->photo) {
+                $photo = $product->photo;
+            }
+            
+            Product::where('id','=', $request->id)->delete();
+            Storage::delete($photo);
+
+            return redirect()->back()->with('success', $message);
+
+        } catch (QueryException $e) {
+            
+            $message = $e->getMessage();
+            
         }
-
-        Product::where('id','=', $request->id)->delete();
-
-        return redirect()->back()->with('success', 'Product deleted successfuly');
+        
+        return redirect()->back()->with('error', $message);
     }
 
     /**
@@ -638,11 +662,18 @@ class AdminController extends Controller
         if (!Cart::where('id', '=', $request->cartid)->exists()) {
             return redirect()->back();
         }
+        $message = 'Product deleted from cart successfully';
 
-        Cart::where('id', '=', $request->cartid)->delete();
+        try {
+            
+            Cart::where('id', '=', $request->cartid)->delete();
+            return redirect()->back()->with('success', $message);
 
-        return redirect()->back()->with('success', 'Product deleted from cart successfully');
-
+        } catch (QueryException $e) {
+            $message = $e->getMessage();
+        }
+    
+        return redirect()->back()->with('error', $message);
     }
 
     /**

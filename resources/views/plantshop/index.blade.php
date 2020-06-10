@@ -25,6 +25,9 @@
     </a>
 </div>
 <h2>Latest Product</h2>
+@if(!$latest_product->first())
+<h1>Product not found</h1>
+@endif
 @foreach($latest_product as $product)
 <div class='col-sm-4'>
     <div class='box box-solid box-success'>

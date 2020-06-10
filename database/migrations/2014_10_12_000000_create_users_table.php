@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('contact_info', 100)->nullable();
             $table->string('photo')->nullable();
-            $table->integer('status')->unsigned();
             $table->timestamps();
         });
     }

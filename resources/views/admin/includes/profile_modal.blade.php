@@ -1,3 +1,4 @@
+{{-- Not needed --}}
 <!-- Update -->
 <div class="modal fade" id="profile">
     <div class="modal-dialog">
@@ -8,7 +9,6 @@
                 <h4 class="modal-title"><b>Admin Profile</b></h4>
             </div>
             <div class="modal-body">
-                {{-- <form class="form-horizontal" method="POST" action="profile_update.php?return=<?php echo basename($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data"> --}}
                 <form class="form-horizontal" method="POST" action="/admin/update/profile" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -63,11 +63,3 @@
         </div>
     </div>
 </div>
-@if(count($errors) > 0))
-<script type="text/javascript">
-    $(window).on('load', function() {
-        $('#profile').modal('show');
-    });
-
-</script>
-@endif

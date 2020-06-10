@@ -23,19 +23,6 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box box-success">
-                            <!-- <div class="box-header with-border">
-                            <div class="pull-right">
-                                <form method="POST" class="form-inline" action="sales_print.php">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control pull-right col-sm-8" id="reservation" name="date_range">
-                                </div>
-                                <button type="submit" class="btn btn-success btn-sm" name="print"><span class="glyphicon glyphicon-print"></span> Print</button>
-                                </form>
-                            </div>
-                            </div> -->
                             <div class="box-body">
                                 <table id="example1" class="table table-bordered">
                                     <thead>

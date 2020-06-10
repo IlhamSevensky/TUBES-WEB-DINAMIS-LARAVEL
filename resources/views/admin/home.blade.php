@@ -20,29 +20,6 @@
 
             <!-- Main content -->
             <section class="content">
-                {{-- {{ @json($monthly_total_sales) }} --}}
-                {{-- <?php
-                if(isset($_SESSION['error'])){
-                  echo "
-                    <div class='alert alert-danger alert-dismissible'>
-                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                      <h4><i class='icon fa fa-warning'></i> Error!</h4>
-                      ".$_SESSION['error']."
-                    </div>
-                  ";
-                  unset($_SESSION['error']);
-                }
-                if(isset($_SESSION['success'])){
-                  echo "
-                    <div class='alert alert-success alert-dismissible'>
-                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                      <h4><i class='icon fa fa-check'></i> Success!</h4>
-                      ".$_SESSION['success']."
-                    </div>
-                  ";
-                  unset($_SESSION['success']);
-                }
-              ?> --}}
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-lg-3 col-xs-6">
@@ -55,7 +32,7 @@
                             <div class="icon">
                                 <i class="fa fa-shopping-cart"></i>
                             </div>
-                            <!-- <a href="book.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                            <a href="/admin/sales" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -69,7 +46,7 @@
                             <div class="icon">
                                 <i class="fa fa-barcode"></i>
                             </div>
-                            <!-- <a href="student.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                            <a href="/admin/products/all" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -83,7 +60,7 @@
                             <div class="icon">
                                 <i class="fa fa-users"></i>
                             </div>
-                            <!-- <a href="return.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                            <a href="/admin/users" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -91,13 +68,13 @@
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>{{ $today_total_sales }}</h3>
+                                <h3>Rp. {{ number_format($today_total_sales) }}</h3>
                                 <p>Sales Today</p>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-money"></i>
                             </div>
-                            <!-- <a href="borrow.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                            <a href="#" class="small-box-footer">{{ $date_now }}</i></a>
                         </div>
                     </div>
                     <!-- ./col -->

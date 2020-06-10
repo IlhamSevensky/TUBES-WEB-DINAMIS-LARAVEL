@@ -2,6 +2,9 @@
  @section('title', 'Plant Shop | ' . $categories->name )
  @section('content-body')
  <h1 class="page-header">{{ $categories->name }}</h1>
+ @if(!$categories->products->first())
+ <h1>Product not found</h1>
+ @endif
  @foreach($categories->products as $product)
  <div class='col-sm-4'>
      <div class='box box-solid box-success'>
