@@ -9,11 +9,19 @@ use App\Sale;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+
+    /**
+     * Handle to fetch sales detail for modal dialog on sales page
+     * @param sale_id
+     * @return json
+     */
+
     function salesDetail(Request $request) {
         
         $response = array( 'transaction' => '',
@@ -48,6 +56,12 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * Handle to fetch user detail for modal dialog on admin users page
+     * @param user_id
+     * @return json
+     */
+
     function userDetail(Request $request){
 
         $user = User::where('id', '=', $request->id)->first();
@@ -55,6 +69,12 @@ class AdminController extends Controller
         return response()->json($user);
 
     }
+
+    /**
+     * Handle to fetch user carts from admin users page
+     * @param user_id
+     * @return json
+     */
 
     function userCart($id) {
 
@@ -79,6 +99,18 @@ class AdminController extends Controller
                                 ->with('cart_items', $cart_items);
 
     }
+
+    /**
+     * Handle user edit process on admin users page
+     * @param user_id
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param password
+     * @param contact_info
+     * @param address
+     * @return view
+     */
 
     function userEdit(Request $request) {
         
@@ -134,6 +166,12 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * Handle user delete on admin users page
+     * @param user_id
+     * @return view
+     */
+
     function userDelete(Request $request){
 
         if (!User::where('id','=', $request->id)->exists()) {
@@ -152,6 +190,13 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User deleted successfuly');
     }
+
+    /**
+     * Handle user edit avatar/photo on admin users page
+     * @param user_id
+     * @param photo/image
+     * @return view
+     */
 
     function userUpdateAvatar(Request $request) {
 
@@ -181,6 +226,18 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * Handle user add on admin users page
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param password
+     * @param photo/image
+     * @param address
+     * @param contact_info
+     * @return view
+     */
+
     function userAdd(Request $request) {
 
         $this->validate($request, [
@@ -209,6 +266,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Account created successfully');
     }
 
+    /**
+     * Handle fetch product detail for modal dialog on admin products page
+     * @param product_id
+     * @return json
+     */
+
     function productDetail(Request $request) {
 
         $product = Product::where('id', '=', $request->id)->first();
@@ -225,6 +288,11 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * Handle fetch product category for category option on admin products page
+     * @return json
+     */
+
     function productCategoryFetch() {
         $list_category = Category::all();
 
@@ -236,6 +304,16 @@ class AdminController extends Controller
 
         return response()->json($response);
     }
+
+    /**
+     * Handle product edit process on admin product page
+     * @param product_id
+     * @param name
+     * @param price
+     * @param description
+     * @param category_id
+     * @return view
+     */
 
     function productEdit(Request $request) {
 
@@ -279,6 +357,16 @@ class AdminController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
+    /**
+     * Handle product add process on admin products page
+     * @param name
+     * @param price
+     * @param category_id
+     * @param description
+     * @param photo/image
+     * @return view
+     */
+
     function productAdd(Request $request) {
 
         $this->validate($request, [
@@ -315,6 +403,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Product added successfully');
     }
 
+    /**
+     * Handle product delete process on admin products page
+     * @param product_id
+     * @return view
+     */
+
     function productDelete(Request $request) {
 
         if (!Product::where('id','=', $request->id)->exists()) {
@@ -331,6 +425,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Product deleted successfuly');
     }
 
+    /**
+     * Handle category fetch for modal dialog on admin category page
+     * @param category_id
+     * @return json
+     */
+
     function categoryFetch(Request $request) {
 
         $category = Category::where('id', '=', $request->id)->first();
@@ -338,6 +438,13 @@ class AdminController extends Controller
         return response()->json($category);
 
     }
+
+    /**
+     * Handle category edit process on admin category page
+     * @param category_id
+     * @param name
+     * @return view
+     */
 
     function categoryEdit(Request $request) {
 
@@ -370,6 +477,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Update category successfully');
     }
 
+    /**
+     * Handle category add process on admin category page
+     * @param name
+     * @return view
+     */
+
     function categoryAdd(Request $request) {
 
         $this->validate($request, [
@@ -397,6 +510,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Category created successfully');
     }
 
+    /**
+     * Handle category delete process on admin category page
+     * @param category_id
+     * @return view
+     */
+
     function categoryDelete(Request $request) {
 
         if (!Category::where('id','=', $request->id)->exists()) {
@@ -418,6 +537,12 @@ class AdminController extends Controller
         
     }
 
+    /**
+     * Handle fetch user cart detail on admin users page
+     * @param cart_id
+     * @return json
+     */
+    
     function userCartDetail(Request $request) {
 
         $cart = Cart::where('id', '=', $request->id)->first();
@@ -431,6 +556,13 @@ class AdminController extends Controller
 
         return response()->json($response);
     }
+
+    /**
+     * Handle user cart edit on admin users page
+     * @param cart_id
+     * @param quantity
+     * @return view
+     */
 
     function userCartEdit(Request $request) {
 
@@ -449,6 +581,11 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * Handle fetch all product for add cart on admin users page
+     * @return json
+     */
+
     function userCartFetchProduct() {
 
         $products = Product::all();
@@ -461,6 +598,14 @@ class AdminController extends Controller
         return response()->json($response);
     
     }
+
+    /**
+     * Handle user cart add process for modal dialog on admin users page
+     * @param user_id
+     * @param product_id
+     * @param quantity
+     * @return view
+     */
 
     function userCartAdd(Request $request) {
         
@@ -482,6 +627,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Product added to cart successfully');
     }
 
+    /**
+     * Handle user cart delete on admin users page
+     * @param cart_id
+     * @return view
+     */
+
     function userCartDelete(Request $request) {
 
         if (!Cart::where('id', '=', $request->cartid)->exists()) {
@@ -493,6 +644,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Product deleted from cart successfully');
 
     }
+
+    /**
+     * Handle product edit photo/avatar process on admin products page
+     * @param photo/image
+     * @return view
+     */
 
     function productEditPhoto(Request $request) {
 

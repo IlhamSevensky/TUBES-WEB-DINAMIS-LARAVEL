@@ -1,5 +1,3 @@
-{{-- <?php include 'includes/session.php'; ?>
-<?php include 'includes/header.php'; ?> --}}
 @include('admin.includes.header')
 <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
@@ -26,18 +24,18 @@
                     <div class="col-xs-12">
                         <div class="box box-success">
                             <!-- <div class="box-header with-border">
-              <div class="pull-right">
-                <form method="POST" class="form-inline" action="sales_print.php">
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" class="form-control pull-right col-sm-8" id="reservation" name="date_range">
-                  </div>
-                  <button type="submit" class="btn btn-success btn-sm" name="print"><span class="glyphicon glyphicon-print"></span> Print</button>
-                </form>
-              </div>
-            </div> -->
+                            <div class="pull-right">
+                                <form method="POST" class="form-inline" action="sales_print.php">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right col-sm-8" id="reservation" name="date_range">
+                                </div>
+                                <button type="submit" class="btn btn-success btn-sm" name="print"><span class="glyphicon glyphicon-print"></span> Print</button>
+                                </form>
+                            </div>
+                            </div> -->
                             <div class="box-body">
                                 <table id="example1" class="table table-bordered">
                                     <thead>
@@ -59,38 +57,6 @@
                                             <td><button type='button' class='btn btn-info btn-sm transact' data-id="{{ $transaction['sale_id'] }}"><i class='fa fa-search'></i> View</button></td>
                                         </tr>
                                         @endforeach
-                                        {{-- <?php
-                                          $conn = $pdo->open();
-
-                                          try{
-                                            $stmt = $conn->prepare("SELECT *, sales.id AS salesid FROM sales LEFT JOIN users ON users.id=sales.user_id ORDER BY sales_date DESC");
-                                            $stmt->execute();
-                                            foreach($stmt as $row){
-                                              $stmt = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE details.sales_id=:id");
-                                              $stmt->execute(['id'=>$row['salesid']]);
-                                              $total = 0;
-                                              foreach($stmt as $details){
-                                                $subtotal = $details['price']*$details['quantity'];
-                                                $total += $subtotal;
-                                              }
-                                              echo "
-                                                <tr>
-                                                  <td class='hidden'></td>
-                                                  <td>".date('M d, Y', strtotime($row['sales_date']))."</td>
-                                                  <td>".$row['firstname'].' '.$row['lastname']."</td>
-                                                  <td>".$row['pay_id']."</td>
-                                                  <td>Rp. ".number_format($total)."</td>
-                                                  <td><button type='button' class='btn btn-info btn-sm transact' data-id='".$row['salesid']."'><i class='fa fa-search'></i> View</button></td>
-                                                </tr>
-                                              ";
-                                            }
-                                          }
-                                          catch(PDOException $e){
-                                            echo $e->getMessage();
-                                          }
-
-                                          $pdo->close();
-                                        ?> --}}
                                     </tbody>
                                 </table>
                             </div>

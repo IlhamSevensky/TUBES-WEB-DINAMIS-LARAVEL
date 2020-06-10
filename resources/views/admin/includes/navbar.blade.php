@@ -32,9 +32,9 @@
                             </p>
                         </li>
                         <li class="user-footer">
-                            <div class="pull-left">
+                            {{-- <div class="pull-left">
                                 <a href="#profile" data-toggle="modal" class="btn btn-default" id="admin_profile">Update</a>
-                            </div>
+                            </div> --}}
                             <div class="pull-right">
                                 <a href="/logout" class="btn btn-default">Sign out</a>
                             </div>

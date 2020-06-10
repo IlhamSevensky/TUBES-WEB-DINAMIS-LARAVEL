@@ -39,28 +39,6 @@
                     @enderror
                 </div>
                 @endif
-                {{-- <?php
-                  if(isset($_SESSION['error'])){
-                    echo "
-                      <div class='alert alert-danger alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h4><i class='icon fa fa-warning'></i> Error!</h4>
-                        ".$_SESSION['error']."
-                      </div>
-                    ";
-                    unset($_SESSION['error']);
-                  }
-                  if(isset($_SESSION['success'])){
-                    echo "
-                      <div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h4><i class='icon fa fa-check'></i> Success!</h4>
-                        ".$_SESSION['success']."
-                      </div>
-                    ";
-                    unset($_SESSION['success']);
-                  }
-                ?> --}}
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box box-success">
@@ -83,30 +61,6 @@
                                             </td>
                                         </tr>
                                         @endforeach
-                                        {{-- <?php
-                                          $conn = $pdo->open();
-
-                                          try{
-                                            $stmt = $conn->prepare("SELECT * FROM category");
-                                            $stmt->execute();
-                                            foreach($stmt as $row){
-                                              echo "
-                                                <tr>
-                                                  <td>".$row['name']."</td>
-                                                  <td>
-                                                    <button class='btn btn-success btn-sm edit' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-                                                    <button class='btn btn-danger btn-sm delete' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
-                                                  </td>
-                                                </tr>
-                                              ";
-                                            }
-                                          }
-                                          catch(PDOException $e){
-                                            echo $e->getMessage();
-                                          }
-
-                                          $pdo->close();
-                                        ?> --}}
                                     </tbody>
                                 </table>
                             </div>

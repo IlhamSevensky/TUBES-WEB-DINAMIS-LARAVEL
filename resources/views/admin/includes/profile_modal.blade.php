@@ -1,4 +1,4 @@
-<!-- Add -->
+<!-- Update -->
 <div class="modal fade" id="profile">
     <div class="modal-dialog">
         <div class="modal-content" style="border-radius: 5px;">
@@ -9,7 +9,8 @@
             </div>
             <div class="modal-body">
                 {{-- <form class="form-horizontal" method="POST" action="profile_update.php?return=<?php echo basename($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data"> --}}
-                <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+                <form class="form-horizontal" method="POST" action="/admin/update/profile" enctype="multipart/form-data">
+                    @csrf
                     <div class="form-group">
                         <label for="email" class="col-sm-3 control-label">Email</label>
 
@@ -17,13 +18,13 @@
                             <input type="text" class="form-control" id="email" name="email" value="{{ auth()->user()->email }}">
                         </div>
                     </div>
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="password" class="col-sm-3 control-label">Password</label>
 
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="password" name="password" value="<?php echo $admin['password']; ?>">
+                            <input type="password" class="form-control" id="password" name="password" value="{{ auth()->user()->password }}">
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 control-label">Firstname</label>
 
@@ -62,3 +63,11 @@
         </div>
     </div>
 </div>
+@if(count($errors) > 0))
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#profile').modal('show');
+    });
+
+</script>
+@endif

@@ -24,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $view_name = ['plantshop.includes.navbar', 'plantshop.includes.main'];
+        $view_name_store = ['plantshop.includes.navbar', 'plantshop.includes.main'];
+        $view_name_admin = ['admin.*'];
         
         /**
          * @todo Handle share data to specific or all view 
@@ -33,7 +34,11 @@ class AppServiceProvider extends ServiceProvider
          */
         
         View::composer(
-            $view_name, 'App\Http\ViewComposers\PlantShopViewComposer'
+            $view_name_store, 'App\Http\ViewComposers\PlantShopViewComposer'
+        );
+
+        View::composer(
+            $view_name_admin, 'App\Http\ViewComposers\AdminViewComposer'
         );
     }
 }

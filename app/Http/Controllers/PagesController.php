@@ -17,6 +17,8 @@ use App\User;
 class PagesController extends Controller
 {
     /**
+     * PlantShop Section
+     * ----------------------------------------------------
      * Handle to home page request with latest product data
      * @return view
      */
@@ -92,6 +94,9 @@ class PagesController extends Controller
 
     /**
      * Admin Section
+     * -----------------------------------------------
+     * Handle to redirect /admin to dashboard page with year now
+     * @return view
      */
 
      function adminPage() {
@@ -102,17 +107,19 @@ class PagesController extends Controller
         return redirect('/admin/month/' . $year_now);
      }
 
+     /**
+      * Handle to page admin dashboard
+      * @param year_now default year is year now that generated to all view from AdminViewComposer
+      * @return view
+      */
+
      function dashboard($year) {
         // Indonesian Time Zone
         $timezone = time() + (60 * 60 * 7);
         $date_now = gmdate('Y-m-d', $timezone);
         
-        if ($year < 2015) {
-            $year = 2015;
-        }
-
-        if ($year > 2065) {
-            $year = 2065;
+        if ($year < 2015 || $year > 2065) {
+            return redirect()->back();
         }
 
         // Total Sales
@@ -168,7 +175,6 @@ class PagesController extends Controller
             $monthly_total_sales[] = $total_per_month;
         }        
         
-        // Year must be send to all view
         return view('admin.home')->with('year', $year)
                                 ->with('total_sales', $total_sales)
                                 ->with('number_of_product', $number_of_product)
@@ -177,6 +183,11 @@ class PagesController extends Controller
                                 ->with('month_name_data', $month_name)
                                 ->with('monthly_total_sales', $monthly_total_sales);
      }
+
+     /**
+      * Handle to admin sales page
+      * @return view
+      */
 
      function salesPage(){
 
@@ -205,14 +216,30 @@ class PagesController extends Controller
          return view('admin.sales')->with('transaction_data', $transaction_data);
      }
 
+    /**
+     * Handle to admin users page
+     * @return view
+     */
+
     function usersPage(){
         $users = User::all();
         return view('admin.users')->with('users', $users);
     }
 
+    /**
+     * Handle to admin products page
+     * @return view
+     */
+
     function productPage() {
         return redirect('/admin/products/all');
     }
+
+    /**
+     * Handle to admin products with specific category
+     * @param category_slug
+     * @return view
+     */
 
     function product($category_slug) {
         
@@ -242,6 +269,10 @@ class PagesController extends Controller
                                     ->with('list_category', $list_category);
     }
 
+    /**
+     * Handle to admin category page
+     * @return view
+     */
     function categoryPage() {
         $list_category = Category::all();
 

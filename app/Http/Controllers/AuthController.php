@@ -79,6 +79,12 @@ class AuthController extends Controller
 
         Session::put('session', $request->email);
 
+        $user = User::where('email', '=', $request->email)->first();
+    
+        if ($user->type == 1) {
+            return redirect()->route('admin_page');
+        }
+
         return redirect()->route('home');
     }
 

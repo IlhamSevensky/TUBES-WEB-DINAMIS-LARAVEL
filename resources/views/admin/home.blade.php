@@ -1,18 +1,3 @@
-{{-- <?php 
-  include 'includes/session.php';
-  include 'includes/format.php'; 
-?> --}}
-{{-- <?php 
-  // Indonesian Time Zone
-  $timezone = time() + (60 * 60 * 7);
-  $today = gmdate('Y-m-d', $timezone);
-  $year = gmdate('Y', $timezone);
-  if(isset($_GET['year'])){
-    $year = $_GET['year'];
-  }
-
-  $conn = $pdo->open();
-?> --}}
 @include('admin.includes.header')
 <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">

@@ -1,11 +1,3 @@
-{{-- <?php
-  $where = '';
-  if(isset($_GET['category'])){
-    $catid = $_GET['category'];
-    $where = 'WHERE category_id ='.$catid;
-  }
-
-?> --}}
 @include('admin.includes.header')
 <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
@@ -54,28 +46,6 @@
                     @enderror
                 </div>
                 @endif
-                {{-- <?php
-                  if(isset($_SESSION['error'])){
-                    echo "
-                      <div class='alert alert-danger alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h4><i class='icon fa fa-warning'></i> Error!</h4>
-                        ".$_SESSION['error']."
-                      </div>
-                    ";
-                    unset($_SESSION['error']);
-                  }
-                  if(isset($_SESSION['success'])){
-                    echo "
-                      <div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-                        <h4><i class='icon fa fa-check'></i> Success!</h4>
-                        ".$_SESSION['success']."
-                      </div>
-                    ";
-                    unset($_SESSION['success']);
-                  }
-                ?> --}}
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box box-success">
@@ -122,40 +92,6 @@
                                             </td>
                                         </tr>
                                         @endforeach
-                                        {{-- <?php
-                                          $conn = $pdo->open();
-
-                                          try{
-                                            $now = date('Y-m-d');
-                                            $stmt = $conn->prepare("SELECT * FROM products $where");
-                                            $stmt->execute();
-                                            foreach($stmt as $row){
-                                              $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/noimage.jpg';
-                                              $counter = ($row['date_view'] == $now) ? $row['counter'] : 0;
-                                              echo "
-                                                <tr>
-                                                  <td>".$row['name']."</td>
-                                                  <td>
-                                                    <img src='".$image."' height='30px' width='30px'>
-                                                    <span class='pull-right'><a href='#edit_photo' class='photo' data-toggle='modal' data-id='".$row['id']."'><i class='fa fa-edit'></i></a></span>
-                                                  </td>
-                                                  <td><a href='#description' data-toggle='modal' class='btn btn-info btn-sm desc' data-id='".$row['id']."'><i class='fa fa-search'></i> View</a></td>
-                                                  <td>Rp. ".number_format($row['price'])."</td>
-                                                  <td>".$counter."</td>
-                                                  <td>
-                                                    <button class='btn btn-success btn-sm edit' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-                                                    <button class='btn btn-danger btn-sm delete' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
-                                                  </td>
-                                                </tr>
-                                              ";
-                                            }
-                                          }
-                                          catch(PDOException $e){
-                                            echo $e->getMessage();
-                                          }
-
-                                          $pdo->close();
-                                        ?> --}}
                                     </tbody>
                                 </table>
                             </div>
