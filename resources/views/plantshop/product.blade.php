@@ -15,7 +15,7 @@
     <div class="col-sm-6">
         <h1 class="page-header">{{ $detail_product->name }}</h1>
         <h3><b>Rp. {{ $detail_product->number_format_price() }}</b></h3>
-        <p><b>Category:</b> <a href="/category/{{ $detail_product->slug }}">{{ $detail_product->name }}</a></p>
+        <p><b>Category:</b> <a href="/category/{{ $detail_product->category->cat_slug }}">{{ $detail_product->category->name }}</a></p>
         <form class="form-inline" action="#" id="productForm">
             @csrf
             <div class="form-group">
